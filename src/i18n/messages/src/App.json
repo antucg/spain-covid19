@@ -1,0 +1,7 @@
+[
+  { "id": "app.title", "defaultMessage": "Spain Covid-19" },
+  {
+    "id": "app.updateDate",
+    "defaultMessage": "Data last update date: {lastUpdateDate}"
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "main.provincePopup",
+    "defaultMessage": "Province: {name}<br />Accumulated cases in last 15 days: {accumulated}"
+  },
+  {
+    "id": "main.noData",
+    "defaultMessage": "Province: {name}<br />,Data not available."
+  }
+]

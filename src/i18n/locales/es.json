@@ -1,0 +1,12 @@
+{
+  "app.title": "España Covid-19",
+  "app.updateDate": "Última actualización de datos: {lastUpdateDate}",
+  "legend.black": "Información no disponible",
+  "legend.green": "0 casos",
+  "legend.red": "> 50 casos",
+  "legend.source": "Fuente de datos: <a>Escovid19data</a>",
+  "legend.title": "Últimos 14 días",
+  "legend.yellow": "< 50 casos",
+  "main.noData": "Provincia: {name}<br/>Información no disponible.",
+  "main.provincePopup": "Provincia: {name}<br />Casos acumulados en los &uacute;ltimos 14 d&iacute;as: {accumulated}"
+}
