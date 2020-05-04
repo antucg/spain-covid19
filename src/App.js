@@ -42,8 +42,8 @@ class App extends Component {
             <h1>{formatMessage(messages.title)}</h1>
           )}
           <div id="languages">
-            <a href="/?locale=es">Español</a>
-            <a href="/?locale=en">English</a>
+            <a href="?locale=es">Español</a>
+            <a href="?locale=en">English</a>
           </div>
         </header>
         <Main />
