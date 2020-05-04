@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/spain-covid19/static/js/main.5dc2c4fc.chunk.js",
-    "main.js.map": "/spain-covid19/static/js/main.5dc2c4fc.chunk.js.map",
+    "main.js": "/spain-covid19/static/js/main.2b39e1c1.chunk.js",
+    "main.js.map": "/spain-covid19/static/js/main.2b39e1c1.chunk.js.map",
     "runtime-main.js": "/spain-covid19/static/js/runtime-main.4040d64d.js",
     "runtime-main.js.map": "/spain-covid19/static/js/runtime-main.4040d64d.js.map",
     "static/js/2.00839e30.chunk.js": "/spain-covid19/static/js/2.00839e30.chunk.js",
     "static/js/2.00839e30.chunk.js.map": "/spain-covid19/static/js/2.00839e30.chunk.js.map",
     "index.html": "/spain-covid19/index.html",
-    "precache-manifest.57b444c46ba12af370f951ef0881a701.js": "/spain-covid19/precache-manifest.57b444c46ba12af370f951ef0881a701.js",
+    "precache-manifest.cfc4f49cb07f5f3683064a495908b8c4.js": "/spain-covid19/precache-manifest.cfc4f49cb07f5f3683064a495908b8c4.js",
     "service-worker.js": "/spain-covid19/service-worker.js",
     "static/js/2.00839e30.chunk.js.LICENSE.txt": "/spain-covid19/static/js/2.00839e30.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.4040d64d.js",
     "static/js/2.00839e30.chunk.js",
-    "static/js/main.5dc2c4fc.chunk.js"
+    "static/js/main.2b39e1c1.chunk.js"
   ]
 }

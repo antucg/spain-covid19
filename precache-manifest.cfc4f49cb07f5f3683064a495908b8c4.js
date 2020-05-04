@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1511b4e8a897776713c4731563f94e99",
+    "revision": "96a37ee433363aef27ff88c11a7bd8ce",
     "url": "/spain-covid19/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/spain-covid19/static/js/2.00839e30.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "3d477d41616b44c740a0",
-    "url": "/spain-covid19/static/js/main.5dc2c4fc.chunk.js"
+    "revision": "52ae9775de3ecf9a9bed",
+    "url": "/spain-covid19/static/js/main.2b39e1c1.chunk.js"
   },
   {
     "revision": "7a91d9267e4621cd648a",
