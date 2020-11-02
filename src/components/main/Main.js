@@ -1,137 +1,132 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { injectIntl } from 'react-intl';
-import { defineMessages } from 'react-intl.macro';
-import { Map, GeoJSON, TileLayer } from 'react-leaflet';
-import { List } from '@material-ui/icons';
-import { isMobile } from 'react-device-detect';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useIntl } from "react-intl";
+import { Map, GeoJSON, TileLayer, Popup } from "react-leaflet";
+import { List } from "@material-ui/icons";
+import { isMobile } from "react-device-detect";
 
-import MapLegend from '../mapLegend/MapLegend';
-import { MainWrapper, MAP_RED, MAP_YELLOW, MAP_GREEN } from '../../styles/Main';
-import spainProvinces from '../../data/spain-provinces.json';
-import { FETCH_COVID19_DATA } from '../../redux/sagas';
+import MapLegend from "../mapLegend/MapLegend";
+import { MainWrapper, MAP_RED, MAP_YELLOW, MAP_GREEN } from "../../styles/Main";
+import spainProvinces from "../../data/spain-provinces.json";
+import { FETCH_COVID19_DATA } from "../../redux/sagas";
 
-const messages = defineMessages({
-  provincePopup: {
-    id: 'main.provincePopup',
-    defaultMessage:
-      'Province: {name}<br />Accumulated cases in last 15 days: {accumulated}',
-  },
-  noData: {
-    id: 'main.noData',
-    defaultMessage: 'Province: {name}<br />,Data not available.',
-  },
-});
+import { getLast14ByProvice, getNoDataProvinces } from "../../redux/selectors";
+import messages from "../../i18n/allMessages";
 
-class Main extends Component {
-  state = {
-    lat: 37.485818,
-    lng: -5.877067,
-    zoom: 5,
-    openLegend: false,
-  };
+const LAT_LNG = [37.485818, -5.877067];
+const ZOOM = 5;
 
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({ type: FETCH_COVID19_DATA });
+/**
+ * Return a color depending on the number of cases reported in the given province.
+ * @param {Number} provinceCode
+ * @param {Number} cases
+ * @param {Array} noDataProvinces
+ */
+const getColor = (provinceCode, cases, noDataProvinces) => {
+  if (noDataProvinces.includes(provinceCode)) {
+    return "#000";
   }
 
-  geoJSONStyle = (feature) => {
-    const { last_14_by_province: last14ByProvince } = this.props.data;
+  if (cases >= 50) {
+    return MAP_RED;
+  } else if (cases > 0) {
+    return MAP_YELLOW;
+  }
+  return MAP_GREEN;
+};
 
+/**
+ * Popup component for map. Render a message as the body of the popup.
+ * @param {Object} props
+ */
+const MapPopup = ({ children }) => (
+  <Popup>
+    <p>{children}</p>
+  </Popup>
+);
+
+const Main = (props) => {
+  const { formatMessage } = useIntl();
+  const dispatch = useDispatch();
+  const [openLegend, setOpenLenged] = useState(false);
+  const last14ByProvince = useSelector(getLast14ByProvice);
+  const noDataProvinces = useSelector(getNoDataProvinces);
+
+  /**
+   * Fetch data from server.
+   */
+  useEffect(() => {
+    dispatch({ type: FETCH_COVID19_DATA });
+  }, []);
+
+  /**
+   * Close legend when interacting with the map.
+   */
+  const closeLegend = () => {
+    setOpenLenged(false);
+  };
+
+  /**
+   * Return style object for each of the provinces.
+   * @param {Object} feature
+   */
+  const geoJSONStyle = (feature) => {
     return {
-      color: '#1f2021',
+      color: "#1f2021",
       weight: 1,
       fillOpacity: 0.5,
-      fillColor: this.getColor(
+      fillColor: getColor(
         feature.properties.cartodb_id,
-        last14ByProvince[feature.properties.cartodb_id].accumulated
+        last14ByProvince[feature.properties.cartodb_id].accumulated,
+        noDataProvinces
       ),
     };
   };
 
-  getColor(provinceCode, cases) {
-    if (this.props.noDataProvinces.includes(provinceCode)) {
-      return '#000';
-    }
-
-    if (cases >= 50) {
-      return MAP_RED;
-    } else if (cases > 0) {
-      return MAP_YELLOW;
-    }
-    return MAP_GREEN;
-  }
-
-  onEachFeature = (feature, layer) => {
-    const {
-      intl: { formatMessage },
-      data: { last_14_by_province: last14ByProvince },
-      noDataProvinces,
-    } = this.props;
-
-    const data = last14ByProvince[feature.properties.cartodb_id];
-    let popupContent = '';
-    if (noDataProvinces.includes(feature.properties.cartodb_id)) {
-      popupContent = popupContent = `<Popup><p>${formatMessage(
-        messages.noData,
-        data
-      )}</p></Popup>`;
-    } else {
-      popupContent = `<Popup><p>${formatMessage(
-        messages.provincePopup,
-        data
-      )}</p></Popup>`;
-    }
-
-    layer.bindPopup(popupContent);
-  };
-
-  onMenuClick = () => {
-    this.setState({ openLegend: true });
-  };
-
-  closeLegend = () => {
-    this.setState({ openLegend: false });
-  };
-
-  render() {
-    const { last_14_by_province: last14ByProvince } = this.props.data;
-    const { openLegend } = this.state;
-
-    return last14ByProvince ? (
-      <MainWrapper className={isMobile ? 'mobile-layout' : ''}>
-        <Map
-          center={[this.state.lat, this.state.lng]}
-          zoom={this.state.zoom}
-          onMove={this.closeLegend}
-          onClick={this.closeLegend}
-          onZoom={this.closeLegend}
-        >
-          <TileLayer
-            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <GeoJSON
-            data={spainProvinces}
-            style={this.geoJSONStyle}
-            onEachFeature={this.onEachFeature}
-          />
-        </Map>
-        <List
-          id="menu-icon"
-          className={openLegend ? 'hide' : ''}
-          onClick={this.onMenuClick}
-        ></List>
-        <MapLegend className={openLegend ? 'show' : ''}></MapLegend>
-      </MainWrapper>
-    ) : (
-      <div></div>
+  /**
+   * Create a popup to show the data for each province on click.
+   * @param {Object} feature
+   * @param {Object} layer
+   */
+  const onEachFeature = (feature, layer) => {
+    const message = formatMessage(
+      noDataProvinces.includes(feature.properties.cartodb_id)
+        ? messages.noData
+        : messages.provincePopup,
+      last14ByProvince[feature.properties.cartodb_id]
     );
-  }
-}
+    layer.bindPopup(`<MapPopup>${message}</MapPopup>`);
+  };
 
-export default connect(({ covid19 }) => ({
-  data: covid19.data,
-  noDataProvinces: covid19.noDataProvinces,
-}))(injectIntl(Main));
+  return last14ByProvince ? (
+    <MainWrapper className={isMobile ? "mobile-layout" : ""}>
+      <Map
+        center={LAT_LNG}
+        zoom={ZOOM}
+        onMove={closeLegend}
+        onClick={closeLegend}
+        onZoom={closeLegend}
+      >
+        <TileLayer
+          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <GeoJSON
+          data={spainProvinces}
+          style={geoJSONStyle}
+          onEachFeature={onEachFeature}
+        />
+      </Map>
+      <List
+        id="menu-icon"
+        className={openLegend ? "hide" : ""}
+        onClick={() => setOpenLenged(true)}
+      ></List>
+      <MapLegend className={openLegend ? "show" : ""}></MapLegend>
+    </MainWrapper>
+  ) : (
+    <></>
+  );
+};
+
+export default Main;

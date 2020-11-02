@@ -1,61 +1,36 @@
-import React from 'react';
-import { injectIntl } from 'react-intl';
-import { defineMessages } from 'react-intl.macro';
+import React from "react";
+import { useIntl } from "react-intl";
 
-import { MapLegendWrapper } from '../../styles/MapLegend';
+import { MapLegendWrapper } from "../../styles/MapLegend";
+import messages from "../../i18n/allMessages";
 
-const messages = defineMessages({
-  legendTitle: {
-    id: 'legend.title',
-    defaultMessage: 'Last 14 days',
-  },
-  legendRed: {
-    id: 'legend.red',
-    defaultMessage: '> 50 cases',
-  },
-  legendYellow: {
-    id: 'legend.yellow',
-    defaultMessage: '< 50 cases',
-  },
-  legendGreen: {
-    id: 'legend.green',
-    defaultMessage: '0 cases',
-  },
-  legendBlack: {
-    id: 'legend.black',
-    defaultMessage: 'Data not available',
-  },
-  dataSource: {
-    id: 'legend.source',
-    defaultMessage: 'Data source: <a>Escovid19data</a>',
-  },
-});
+const ColorLegend = ({ className, text }) => {
+  return (
+    <div>
+      <div className={`color-box ${className}`}></div>
+      {text}
+    </div>
+  );
+};
 
-const MapLegend = (props) => {
-  const {
-    intl: { formatMessage },
-    className,
-  } = props;
-
+const MapLegend = ({ className }) => {
+  const { formatMessage } = useIntl();
   return (
     <MapLegendWrapper id="map-legend-wrapper" className={className}>
       <p>{formatMessage(messages.legendTitle)}</p>
-      <div>
-        <div className="color-box red"></div>
-        {formatMessage(messages.legendRed)}
-      </div>
-      <div>
-        <div className="color-box yellow"></div>
-        {formatMessage(messages.legendYellow)}
-      </div>
-      <div>
-        <div className="color-box green"></div>
-        {formatMessage(messages.legendGreen)}
-      </div>
-      <div>
-        <div className="color-box black"></div>
-        {formatMessage(messages.legendBlack)}
-      </div>
+      <ColorLegend className="red" text={formatMessage(messages.legendRed)} />
+      <ColorLegend
+        className="yellow"
+        text={formatMessage(messages.legendYellow)}
+      />
+      <ColorLegend
+        className="green"
+        text={formatMessage(messages.legendGreen)}
+      />
+      <ColorLegend
+        className="black"
+        text={formatMessage(messages.legendBlack)}
+      />
       <p>
         {formatMessage(messages.dataSource, {
           a: (msg) => (
@@ -72,4 +47,4 @@ const MapLegend = (props) => {
   );
 };
 
-export default injectIntl(MapLegend);
+export default MapLegend;
