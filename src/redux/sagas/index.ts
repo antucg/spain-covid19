@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { fetchCovid19Data, getLastUpdateDate } from "../../utils/covid19API";
 
-export const FETCH_COVID19_DATA = "FETCH_COVID19_DATA";
-export const FETCH_COVID19_SUCCESSFUL = "FETCH_COVID19_SUCCESSFUL";
-export const FETCH_COVID19_FAILED = "FETCH_COVID19_FAILED";
+export const FETCH_COVID19_DATA: string = "FETCH_COVID19_DATA";
+export const FETCH_COVID19_SUCCESSFUL: string = "FETCH_COVID19_SUCCESSFUL";
+export const FETCH_COVID19_FAILED: string = "FETCH_COVID19_FAILED";
 
 function* fetchCovidData() {
   try {

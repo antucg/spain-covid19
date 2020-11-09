@@ -4,7 +4,19 @@ import { useIntl } from "react-intl";
 import { MapLegendWrapper } from "../../styles/MapLegend";
 import messages from "../../i18n/allMessages";
 
-const ColorLegend = ({ className, text }) => {
+interface ColorLegendProps {
+  className: string;
+  text: string;
+}
+
+interface MapLegendProps {
+  className: string;
+}
+
+const ColorLegend: React.FC<ColorLegendProps> = ({
+  className,
+  text,
+}: ColorLegendProps) => {
   return (
     <div>
       <div className={`color-box ${className}`}></div>
@@ -13,7 +25,7 @@ const ColorLegend = ({ className, text }) => {
   );
 };
 
-const MapLegend = ({ className }) => {
+const MapLegend: React.FC<MapLegendProps> = ({ className }) => {
   const { formatMessage } = useIntl();
   return (
     <MapLegendWrapper id="map-legend-wrapper" className={className}>
@@ -33,9 +45,10 @@ const MapLegend = ({ className }) => {
       />
       <p>
         {formatMessage(messages.dataSource, {
-          a: (msg) => (
+          a: (msg: String) => (
             <a
               target="_blank"
+              rel="noopener"
               href="https://github.com/montera34/escovid19data"
             >
               {msg}

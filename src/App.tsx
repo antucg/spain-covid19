@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useIntl } from "react-intl";
 import moment from "moment";
-import { AppWrapper } from "./styles/App.js";
-import Main from "./components/main/Main.js";
+import { AppWrapper } from "./styles/App";
+import Main from "./components/main/Main";
 import { Loop } from "@material-ui/icons";
 import { isMobile, withOrientationChange } from "react-device-detect";
 
@@ -11,7 +11,11 @@ import { getLastUpdateDate } from "./redux/selectors";
 
 import messages from "./i18n/allMessages";
 
-const App = ({ isLandscape }) => {
+interface AppProps {
+  isLandscape: boolean;
+}
+
+const App = ({ isLandscape }: AppProps) => {
   const { formatMessage } = useIntl();
   const lastUpdateDate = useSelector(getLastUpdateDate);
 

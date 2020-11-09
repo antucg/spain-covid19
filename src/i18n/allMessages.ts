@@ -1,6 +1,7 @@
 import { defineMessages } from "react-intl.macro";
+import { MessageDescriptor } from "react-intl";
 
-const messages = defineMessages({
+const messages: MessageDescriptor = defineMessages({
   /**
    * App.js
    */

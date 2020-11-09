@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useIntl } from "react-intl";
 import { Map, GeoJSON, TileLayer, Popup } from "react-leaflet";
+
+import { LatLngExpression, Layer, StyleFunction } from "leaflet";
 import { List } from "@material-ui/icons";
 import { isMobile } from "react-device-detect";
 
@@ -13,7 +15,10 @@ import { FETCH_COVID19_DATA } from "../../redux/sagas";
 import { getLast14ByProvice, getNoDataProvinces } from "../../redux/selectors";
 import messages from "../../i18n/allMessages";
 
-const LAT_LNG = [37.485818, -5.877067];
+import * as geojson from "geojson";
+
+const SPAIN_PROVINCES: GeoJSON.GeoJsonObject = spainProvinces as GeoJSON.GeoJsonObject;
+const LAT_LNG: LatLngExpression = [37.485818, -5.877067];
 const ZOOM = 5;
 
 /**
@@ -22,7 +27,11 @@ const ZOOM = 5;
  * @param {Number} cases
  * @param {Array} noDataProvinces
  */
-const getColor = (provinceCode, cases, noDataProvinces) => {
+const getColor = (
+  provinceCode: number,
+  cases: number,
+  noDataProvinces: Array<number>
+) => {
   if (noDataProvinces.includes(provinceCode)) {
     return "#000";
   }
@@ -39,13 +48,13 @@ const getColor = (provinceCode, cases, noDataProvinces) => {
  * Popup component for map. Render a message as the body of the popup.
  * @param {Object} props
  */
-const MapPopup = ({ children }) => (
+const MapPopup: React.FC = ({ children }) => (
   <Popup>
     <p>{children}</p>
   </Popup>
 );
 
-const Main = (props) => {
+const Main = () => {
   const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const [openLegend, setOpenLenged] = useState(false);
@@ -70,14 +79,14 @@ const Main = (props) => {
    * Return style object for each of the provinces.
    * @param {Object} feature
    */
-  const geoJSONStyle = (feature) => {
+  const geoJSONStyle: StyleFunction = (feature) => {
     return {
       color: "#1f2021",
       weight: 1,
       fillOpacity: 0.5,
       fillColor: getColor(
-        feature.properties.cartodb_id,
-        last14ByProvince[feature.properties.cartodb_id].accumulated,
+        feature?.properties?.cartodb_id,
+        last14ByProvince[feature?.properties?.cartodb_id].accumulated,
         noDataProvinces
       ),
     };
@@ -88,12 +97,12 @@ const Main = (props) => {
    * @param {Object} feature
    * @param {Object} layer
    */
-  const onEachFeature = (feature, layer) => {
+  const onEachFeature = (feature: geojson.Feature, layer: Layer): void => {
     const message = formatMessage(
-      noDataProvinces.includes(feature.properties.cartodb_id)
+      noDataProvinces.includes(feature.properties?.cartodb_id)
         ? messages.noData
         : messages.provincePopup,
-      last14ByProvince[feature.properties.cartodb_id]
+      last14ByProvince[feature.properties?.cartodb_id]
     );
     layer.bindPopup(`<MapPopup>${message}</MapPopup>`);
   };
@@ -112,7 +121,7 @@ const Main = (props) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <GeoJSON
-          data={spainProvinces}
+          data={SPAIN_PROVINCES}
           style={geoJSONStyle}
           onEachFeature={onEachFeature}
         />
@@ -124,9 +133,7 @@ const Main = (props) => {
       ></List>
       <MapLegend className={openLegend ? "show" : ""}></MapLegend>
     </MainWrapper>
-  ) : (
-    <></>
-  );
+  ) : null;
 };
 
 export default Main;

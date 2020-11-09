@@ -1,8 +1,8 @@
-import { readRemoteFile } from 'react-papaparse';
-import moment from 'moment';
+import { readRemoteFile } from "react-papaparse";
+import moment from "moment";
 
 const DATA_URL =
-  'https://raw.githubusercontent.com/montera34/escovid19data/master/data/output/covid19-provincias-spain_consolidated.csv';
+  "https://raw.githubusercontent.com/montera34/escovid19data/master/data/output/covid19-provincias-spain_consolidated.csv";
 let parsedData;
 
 /**
@@ -53,32 +53,32 @@ const buildCasesByProvinceDate = (data) => {
     if (row.date) {
       if (!result[row.ine_code]) {
         result[row.ine_code] = {};
-        result[row.ine_code]['name'] = row.province;
+        result[row.ine_code]["name"] = row.province;
       }
       result[row.ine_code][row.date] = {};
 
       const dateMinus1 = moment(row.date)
-        .subtract(1, 'days')
-        .format('YYYY-MM-DD');
+        .subtract(1, "days")
+        .format("YYYY-MM-DD");
 
       // Some times, accumulated can be NA, let's grab the one from the previous
       // day or 0 if it is the first day
       let currentAccumulated = parseInt(row.cases_accumulated, 10);
       if (isNaN(currentAccumulated)) {
         currentAccumulated = result[row.ine_code][dateMinus1]
-          ? result[row.ine_code][dateMinus1]['accumulated']
+          ? result[row.ine_code][dateMinus1]["accumulated"]
           : 0;
       }
 
-      result[row.ine_code][row.date]['accumulated'] = currentAccumulated;
+      result[row.ine_code][row.date]["accumulated"] = currentAccumulated;
       // Calculate new cases by subtracting accumulated of the previous day
       if (result[row.ine_code][dateMinus1]) {
         // Current date - previous date
-        result[row.ine_code][row.date]['new_cases'] =
-          currentAccumulated - result[row.ine_code][dateMinus1]['accumulated'];
+        result[row.ine_code][row.date]["new_cases"] =
+          currentAccumulated - result[row.ine_code][dateMinus1]["accumulated"];
       } else {
         // First date
-        result[row.ine_code][row.date]['new_cases'] = currentAccumulated;
+        result[row.ine_code][row.date]["new_cases"] = currentAccumulated;
       }
     }
   });
@@ -108,8 +108,8 @@ const buildLast14Days = (data) => {
     // Accumulate last 15 days of new cases
     for (let i = 0; i < 15; ++i) {
       const currentDate = moment(lastDate)
-        .subtract(i, 'days')
-        .format('YYYY-MM-DD');
+        .subtract(i, "days")
+        .format("YYYY-MM-DD");
       result[ine_code].accumulated += data[ine_code][currentDate]
         ? data[ine_code][currentDate].new_cases
         : 0;
@@ -124,7 +124,7 @@ const buildLast14Days = (data) => {
  */
 export const getLastUpdateDate = () => {
   if (!parsedData) {
-    throw new Error('Data not parsed');
+    throw new Error("Data not parsed");
   }
 
   // Last row seems to be empty, let's return previous one just in case
