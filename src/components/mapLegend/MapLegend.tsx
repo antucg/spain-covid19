@@ -4,14 +4,7 @@ import { useIntl } from "react-intl";
 import { MapLegendWrapper } from "../../styles/MapLegend";
 import messages from "../../i18n/allMessages";
 
-interface ColorLegendProps {
-  className: string;
-  text: string;
-}
-
-interface MapLegendProps {
-  className: string;
-}
+import { ColorLegendProps, MapLegendProps } from "./mapLegend.types";
 
 const ColorLegend: React.FC<ColorLegendProps> = ({
   className,

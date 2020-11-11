@@ -11,9 +11,7 @@ import { getLastUpdateDate } from "./redux/selectors";
 
 import messages from "./i18n/allMessages";
 
-interface AppProps {
-  isLandscape: boolean;
-}
+import { AppProps } from "./types/common.types";
 
 const App = ({ isLandscape }: AppProps) => {
   const intl = useIntl();

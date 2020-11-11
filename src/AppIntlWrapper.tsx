@@ -3,7 +3,7 @@ import { IntlProvider } from "react-intl";
 import translations from "./i18n/locales";
 import App from "./App";
 
-type Locales = "es" | "en";
+import { Locales } from "./types/common.types";
 
 const AppIntlWrapper = () => {
   const locale = window.location.search.replace("?locale=", "") || "es";
