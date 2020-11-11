@@ -1,0 +1,32 @@
+{
+  "app.title": {
+    "defaultMessage": "España Covid-19"
+  },
+  "app.updateDate": {
+    "defaultMessage": "Última actualización de datos: {lastUpdateDate}"
+  },
+  "legend.black": {
+    "defaultMessage": "Datos no disponibles"
+  },
+  "legend.green": {
+    "defaultMessage": "0 casos"
+  },
+  "legend.red": {
+    "defaultMessage": "> 50 casos"
+  },
+  "legend.source": {
+    "defaultMessage": "Origen de datos: <a>Escovid19data</a>"
+  },
+  "legend.title": {
+    "defaultMessage": "Últimos 14 días"
+  },
+  "legend.yellow": {
+    "defaultMessage": "< 50 casos"
+  },
+  "main.noData": {
+    "defaultMessage": "Provincia: {name}<br />,Datos no disponibles."
+  },
+  "main.provincePopup": {
+    "defaultMessage": "Provincia: {name}<br />Casos acumulados en los últimos 15 días: {accumulated}"
+  }
+}

@@ -55,7 +55,7 @@ const MapPopup: React.FC = ({ children }) => (
 );
 
 const Main = () => {
-  const { formatMessage } = useIntl();
+  const intl = useIntl();
   const dispatch = useDispatch();
   const [openLegend, setOpenLenged] = useState(false);
   const last14ByProvince = useSelector(getLast14ByProvice);
@@ -98,7 +98,7 @@ const Main = () => {
    * @param {Object} layer
    */
   const onEachFeature = (feature: geojson.Feature, layer: Layer): void => {
-    const message = formatMessage(
+    const message = intl.formatMessage(
       noDataProvinces.includes(feature.properties?.cartodb_id)
         ? messages.noData
         : messages.provincePopup,

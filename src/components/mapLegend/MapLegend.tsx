@@ -26,25 +26,28 @@ const ColorLegend: React.FC<ColorLegendProps> = ({
 };
 
 const MapLegend: React.FC<MapLegendProps> = ({ className }) => {
-  const { formatMessage } = useIntl();
+  const intl = useIntl();
   return (
     <MapLegendWrapper id="map-legend-wrapper" className={className}>
-      <p>{formatMessage(messages.legendTitle)}</p>
-      <ColorLegend className="red" text={formatMessage(messages.legendRed)} />
+      <p>{intl.formatMessage(messages.legendTitle)}</p>
+      <ColorLegend
+        className="red"
+        text={intl.formatMessage(messages.legendRed)}
+      />
       <ColorLegend
         className="yellow"
-        text={formatMessage(messages.legendYellow)}
+        text={intl.formatMessage(messages.legendYellow)}
       />
       <ColorLegend
         className="green"
-        text={formatMessage(messages.legendGreen)}
+        text={intl.formatMessage(messages.legendGreen)}
       />
       <ColorLegend
         className="black"
-        text={formatMessage(messages.legendBlack)}
+        text={intl.formatMessage(messages.legendBlack)}
       />
       <p>
-        {formatMessage(messages.dataSource, {
+        {intl.formatMessage(messages.dataSource, {
           a: (msg: String) => (
             <a
               target="_blank"

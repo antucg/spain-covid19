@@ -16,7 +16,7 @@ interface AppProps {
 }
 
 const App = ({ isLandscape }: AppProps) => {
-  const { formatMessage } = useIntl();
+  const intl = useIntl();
   const lastUpdateDate = useSelector(getLastUpdateDate);
 
   return (
@@ -24,14 +24,16 @@ const App = ({ isLandscape }: AppProps) => {
       <header className="app-header">
         {lastUpdateDate ? (
           <h4>
-            {formatMessage(messages.updateDate, {
+            {intl.formatMessage(messages.updateDate, {
               lastUpdateDate: moment(lastUpdateDate).format("DD-MM-YYYY"),
             })}
           </h4>
         ) : (
           <Loop className="loading" />
         )}
-        {(!isMobile || isLandscape) && <h1>{formatMessage(messages.title)}</h1>}
+        {(!isMobile || isLandscape) && (
+          <h1>{intl.formatMessage(messages.title)}</h1>
+        )}
         <div id="languages">
           <a href="?locale=es">Español</a>
           <a href="?locale=en">English</a>

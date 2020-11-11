@@ -1,12 +1,104 @@
 {
-  "app.title": "España Covid-19",
-  "app.updateDate": "Última actualización de datos: {lastUpdateDate}",
-  "legend.black": "Información no disponible",
-  "legend.green": "0 casos",
-  "legend.red": "> 50 casos",
-  "legend.source": "Fuente de datos: <a>Escovid19data</a>",
-  "legend.title": "Últimos 14 días",
-  "legend.yellow": "< 50 casos",
-  "main.noData": "Provincia: {name}<br/>Información no disponible.",
-  "main.provincePopup": "Provincia: {name}<br />Casos acumulados en los &uacute;ltimos 14 d&iacute;as: {accumulated}"
+  "app.title": [
+    {
+      "type": 0,
+      "value": "España Covid-19"
+    }
+  ],
+  "app.updateDate": [
+    {
+      "type": 0,
+      "value": "Última actualización de datos: "
+    },
+    {
+      "type": 1,
+      "value": "lastUpdateDate"
+    }
+  ],
+  "legend.black": [
+    {
+      "type": 0,
+      "value": "Datos no disponibles"
+    }
+  ],
+  "legend.green": [
+    {
+      "type": 0,
+      "value": "0 casos"
+    }
+  ],
+  "legend.red": [
+    {
+      "type": 0,
+      "value": "> 50 casos"
+    }
+  ],
+  "legend.source": [
+    {
+      "type": 0,
+      "value": "Origen de datos: "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Escovid19data"
+        }
+      ],
+      "type": 8,
+      "value": "a"
+    }
+  ],
+  "legend.title": [
+    {
+      "type": 0,
+      "value": "Últimos 14 días"
+    }
+  ],
+  "legend.yellow": [
+    {
+      "type": 0,
+      "value": "< 50 casos"
+    }
+  ],
+  "main.noData": [
+    {
+      "type": 0,
+      "value": "Provincia: "
+    },
+    {
+      "type": 1,
+      "value": "name"
+    },
+    {
+      "type": 0,
+      "value": "<br />"
+    },
+    {
+      "type": 0,
+      "value": ",Datos no disponibles."
+    }
+  ],
+  "main.provincePopup": [
+    {
+      "type": 0,
+      "value": "Provincia: "
+    },
+    {
+      "type": 1,
+      "value": "name"
+    },
+    {
+      "type": 0,
+      "value": "<br />"
+    },
+    {
+      "type": 0,
+      "value": "Casos acumulados en los últimos 15 días: "
+    },
+    {
+      "type": 1,
+      "value": "accumulated"
+    }
+  ]
 }
