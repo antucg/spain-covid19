@@ -1,4 +1,4 @@
-import { defineMessages, defineMessage } from "react-intl";
+import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
   /**

@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { fetchCovid19Data, getLastUpdateDate } from "../../utils/covid19API";
+import { fetchCovid19Data } from "../../utils/covid19API";
 
 export const FETCH_COVID19_DATA: string = "FETCH_COVID19_DATA";
 export const FETCH_COVID19_SUCCESSFUL: string = "FETCH_COVID19_SUCCESSFUL";
@@ -10,7 +10,7 @@ function* fetchCovidData() {
     const covid19Data = yield call(fetchCovid19Data);
     yield put({
       type: FETCH_COVID19_SUCCESSFUL,
-      payload: { data: covid19Data, lastUpdateDate: getLastUpdateDate() },
+      payload: covid19Data,
     });
   } catch (e) {
     yield put({ type: FETCH_COVID19_FAILED, payload: e.message });

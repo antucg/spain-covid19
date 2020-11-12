@@ -16,6 +16,7 @@ import { getLast14ByProvice, getNoDataProvinces } from "../../redux/selectors";
 import messages from "../../i18n/allMessages";
 
 import * as geojson from "geojson";
+import { isEmpty } from "lodash";
 
 const SPAIN_PROVINCES: GeoJSON.GeoJsonObject = spainProvinces as GeoJSON.GeoJsonObject;
 const LAT_LNG: LatLngExpression = [37.485818, -5.877067];
@@ -107,7 +108,7 @@ const Main = () => {
     layer.bindPopup(`<MapPopup>${message}</MapPopup>`);
   };
 
-  return last14ByProvince ? (
+  return !isEmpty(last14ByProvince) ? (
     <MainWrapper className={isMobile ? "mobile-layout" : ""}>
       <Map
         center={LAT_LNG}

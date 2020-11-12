@@ -1,4 +1,5 @@
 import { RootState } from "../reducers";
+import { buildLast14Days } from "../../utils/covid19DataProcessor";
 
 /**
  * Selector to get last update date from redux store.
@@ -12,7 +13,7 @@ export const getLastUpdateDate = (state: RootState) =>
  * @param {Object} state
  */
 export const getLast14ByProvice = (state: RootState) =>
-  state.covid19.data.last_14_by_province;
+  buildLast14Days(state.covid19.data, state.covid19.lastUpdateDate);
 
 /**
  * Return list of provinces whose data is not available

@@ -6,10 +6,7 @@ import messages from "../../i18n/allMessages";
 
 import { ColorLegendProps, MapLegendProps } from "./mapLegend.types";
 
-const ColorLegend: React.FC<ColorLegendProps> = ({
-  className,
-  text,
-}: ColorLegendProps) => {
+const ColorLegend: React.FC<ColorLegendProps> = ({ className, text }) => {
   return (
     <div>
       <div className={`color-box ${className}`}></div>
@@ -44,7 +41,7 @@ const MapLegend: React.FC<MapLegendProps> = ({ className }) => {
           a: (msg: String) => (
             <a
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               href="https://github.com/montera34/escovid19data"
             >
               {msg}

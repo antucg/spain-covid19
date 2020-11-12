@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { IntlProvider } from "react-intl";
 import translations from "./i18n/locales";
 import App from "./App";
