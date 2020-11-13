@@ -1,9 +1,5 @@
 import { FETCH_COVID19_SUCCESSFUL, FETCH_COVID19_FAILED } from "../sagas";
-
-interface Action {
-  type: string;
-  payload: any;
-}
+import { Action } from "../../types/common.types";
 
 const initialState = {
   data: [],

@@ -1,8 +1,19 @@
+import { rootReducer } from "../redux/reducers/index";
+
+// Redux
+
+export type RootState = ReturnType<typeof rootReducer>;
+
+export interface Action {
+  type: string;
+  payload: any;
+}
+
+// Translation
+
 export type Locales = "es" | "en";
 
-export interface AppProps {
-  isLandscape: boolean;
-}
+// API data
 
 interface CsvRow {
   ine_code: string;
@@ -29,4 +40,10 @@ export interface CasesByProvince {
   [ine_code: string]: {
     [date: string]: string | AccumulatedByDate;
   };
+}
+
+// Components
+
+export interface AppProps {
+  isLandscape: boolean;
 }

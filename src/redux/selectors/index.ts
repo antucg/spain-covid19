@@ -1,4 +1,4 @@
-import { RootState } from "../reducers";
+import { RootState } from "../../types/common.types";
 import { buildLast14Days } from "../../utils/covid19DataProcessor";
 
 /**

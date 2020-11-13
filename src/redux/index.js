@@ -1,14 +1,14 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import createSagaMiddleware from 'redux-saga';
+import { createStore, applyMiddleware, compose } from "redux";
+import createSagaMiddleware from "redux-saga";
 
-import { rootReducer } from './reducers';
-import covid19Sagas from './sagas';
+import { rootReducer } from "./reducers";
+import covid19Sagas from "./sagas";
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
 
 const composeEnhancers =
-  (typeof window !== 'undefined' &&
+  (typeof window !== "undefined" &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
 
